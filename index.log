@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.7.17)  17 JUL 2023 15:26
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.7.17)  17 JUL 2023 15:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1156,10 +1156,6 @@ No file index.toc.
 
 [2
 
-] [3
-
-] [4
-
 ]
 chapter 1.
 
@@ -1177,10 +1173,14 @@ Class scrreprt Warning: \float@addtolists detected!
 (scrreprt)              a package that still implements the
 (scrreprt)              deprecated \float@addtolist interface.
 
+[3
+
+]
+chapter 2.
 
 Package svg Warning: You didn't enable `shell escape' (or `write18')
 (svg)                so it wasn't possible to launch the Inkscape export
-(svg)                for `index_files/mediabag/colab-badge.svg' on input line 313.
+(svg)                for `index_files/mediabag/colab-badge.svg' on input line 301.
 
 
 ! Package svg Error: File `colab-badge_svg-tex.pdf' is missing.
@@ -1189,15 +1189,15 @@ See the svg package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.313 ...vg{index_files/mediabag/colab-badge.svg}}
+l.301 ...vg{index_files/mediabag/colab-badge.svg}}
                                                    
 Here is how much of TeX's memory you used:
  37611 strings out of 477869
- 783685 string characters out of 5821407
+ 783703 string characters out of 5821407
  1916875 words of memory out of 5000000
  57990 multiletter control sequences out of 15000+600000
  561649 words of font info for 67 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,7n,120p,10900b,392s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on index.pdf (4 pages).
+Output written on index.pdf (3 pages).

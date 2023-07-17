@@ -18,7 +18,6 @@ book:
     - product_retrieval_llms_embeddings.ipynb
     - day_2_exercise.ipynb
     - day_3_hackathon.ipynb
-    - intro.qmd
     - summary.qmd
     - references.qmd
 

@@ -219,7 +219,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, borderline west={3pt}{0pt}{shadecolor}, frame hidden, interior hidden, boxrule=0pt, enhanced, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -229,19 +229,8 @@
 }
 \bookmarksetup{startatroot}
 
-\hypertarget{preface}{%
-\chapter*{Preface}\label{preface}}
-\addcontentsline{toc}{chapter}{Preface}
-
-\markboth{Preface}{Preface}
-
-\bookmarksetup{startatroot}
-
 \hypertarget{promptcraft}{%
-\chapter*{PromptCraft}\label{promptcraft}}
-\addcontentsline{toc}{chapter}{PromptCraft}
-
-\markboth{PromptCraft}{PromptCraft}
+\chapter{PromptCraft}\label{promptcraft}}
 
 PromptCraft is a course to take developers from language model prompting
 to a prototype application in three days.
@@ -275,8 +264,7 @@ All lessons are launched via Colab. The course only requires the free
 tier to complete.
 
 \hypertarget{prerequisites}{%
-\subsection*{Prerequisites}\label{prerequisites}}
-\addcontentsline{toc}{subsection}{Prerequisites}
+\subsection{Prerequisites}\label{prerequisites}}
 
 \begin{itemize}
 \tightlist
@@ -4056,15 +4044,6 @@ Your awesome POC follows!
 
 \bookmarksetup{startatroot}
 
-\hypertarget{introduction}{%
-\chapter{Introduction}\label{introduction}}
-
-This is a book created from markdown and executable code.
-
-See Knuth (1984) for additional discussion of literate programming.
-
-\bookmarksetup{startatroot}
-
 \hypertarget{summary}{%
 \chapter{Summary}\label{summary}}
 
@@ -4090,11 +4069,7 @@ We hope you have enjoyed the material and start having fun with LLMs.
 \markboth{References}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-knuth84}{}}%
-Knuth, Donald E. 1984. {``Literate Programming.''} \emph{Comput. J.} 27
-(2): 97--111. \url{https://doi.org/10.1093/comjnl/27.2.97}.
-
+\begin{CSLReferences}{0}{0}
 \end{CSLReferences}
 
 With thanks to DeepLearning.ai's excellent Building Systems with the
