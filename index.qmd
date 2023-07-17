@@ -1,5 +1,4 @@
-
-# PromptCraft
+# Welcome {.unnumbered}
 
 PromptCraft is a course to take developers from language model prompting to a prototype application in three days. 
 

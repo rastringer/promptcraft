@@ -5,7 +5,9 @@ project:
 book:
   title: "PromptCraft"
   author: "RA Stringer"
-  date: "7/17/2023"
+  search: true
+  repo-url: https://github.com/rastringer/promptcraft
+  sharing: [twitter]
   chapters:
     - index.qmd
     - prompting_and_verification.ipynb
