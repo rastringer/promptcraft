@@ -8,6 +8,16 @@ book:
   date: "7/17/2023"
   chapters:
     - index.qmd
+    - prompting_and_verification.ipynb
+    - chain_of_thought.ipynb
+    - chaining_prompts.ipynb
+    - evaluation.ipynb
+    - day_1_exercise.ipynb
+    - langchain_intro.ipynb
+    - a_new_hope.ipynb
+    - product_retrieval_llms_embeddings.ipynb
+    - day_2_exercise.ipynb
+    - day_3_hackathon.ipynb
     - intro.qmd
     - summary.qmd
     - references.qmd
