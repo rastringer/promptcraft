@@ -219,7 +219,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, enhanced, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden, frame hidden, enhanced, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -4068,7 +4068,18 @@ See Knuth (1984) for additional discussion of literate programming.
 \hypertarget{summary}{%
 \chapter{Summary}\label{summary}}
 
-In summary, this book has no content whatsoever.
+In summary, we covered:
+
+\begin{itemize}
+\item
+  Prompt engineering, chaining, verification and evaluation
+\item
+  Working with data and embeddings
+\item
+  LangChain, Vertex AI Matching Engine and Chroma
+\end{itemize}
+
+We hope you have enjoyed the material and start having fun with LLMs.
 
 \bookmarksetup{startatroot}
 
@@ -4085,6 +4096,14 @@ Knuth, Donald E. 1984. {``Literate Programming.''} \emph{Comput. J.} 27
 (2): 97--111. \url{https://doi.org/10.1093/comjnl/27.2.97}.
 
 \end{CSLReferences}
+
+With thanks to DeepLearning.ai's excellent Building Systems with the
+ChatGPT API and LangChain for LLM Application Development
+\href{https://www.deeplearning.ai/short-courses/}{courses}.
+
+Thanks to
+\href{https://github.com/sophiamyang/tutorials-LangChain}{Sophia Yang}
+for the panel code example in a\_new\_hope.ipynb.
 
 
 

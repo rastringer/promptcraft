@@ -1,3 +1,11 @@
 # Summary
 
-In summary, this book has no content whatsoever.
+In summary, we covered:
+
+* Prompt engineering, chaining, verification and evaluation
+
+* Working with data and embeddings
+
+* LangChain, Vertex AI Matching Engine and Chroma
+
+We hope you have enjoyed the material and start having fun with LLMs.

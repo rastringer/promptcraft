@@ -2,3 +2,8 @@
 
 ::: {#refs}
 :::
+
+With thanks to DeepLearning.ai's excellent Building Systems with the ChatGPT API and LangChain for LLM Application Development [courses](https://www.deeplearning.ai/short-courses/). 
+
+Thanks to [Sophia Yang](https://github.com/sophiamyang/tutorials-LangChain) for the panel code example in a_new_hope.ipynb. 
+
