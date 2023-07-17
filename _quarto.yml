@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "promptcraft"
+  title: "PromptCraft"
   author: "RA Stringer"
   date: "7/17/2023"
   chapters:
