@@ -219,7 +219,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt, enhanced, breakable, sharp corners, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[interior hidden, frame hidden, sharp corners, enhanced, breakable, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -297,18 +297,6 @@ unsafe or harmful content
 
 We are developing a chat application for \emph{Brew Haven}, an imaginary
 coffee shop that has an e-commerce site selling coffee machines.
-
-\begin{figure}
-
-{\centering 
-
-\href{https://colab.research.google.com/github/rastringer/building_apps_with_genai_studio/blob/main/1_prompting_and_verification.ipynb}{\includesvg{index_files/mediabag/colab-badge.svg}}
-
-}
-
-\caption{Open in Colab}
-
-\end{figure}
 
 \begin{Shaded}
 \begin{Highlighting}[]
