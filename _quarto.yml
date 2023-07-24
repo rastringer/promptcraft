@@ -16,6 +16,8 @@ book:
     - evaluation.ipynb
     - day_1_exercise.ipynb
     - langchain_intro.ipynb
+    - langchain_memory.ipynb
+    - langchain_chains.ipynb
     - a_new_hope.ipynb
     - product_retrieval_llms_embeddings.ipynb
     - day_2_exercise.ipynb

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PromptCraft - 7&nbsp; Talk to your Data: Star Wars</title>
+<title>PromptCraft - 9&nbsp; Talk to your Data: Star Wars</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./product_retrieval_llms_embeddings.html" rel="next">
-<link href="./langchain_intro.html" rel="prev">
+<link href="./langchain_chains.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./a_new_hope.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Talk to your Data: Star Wars</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./a_new_hope.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Talk to your Data: Star Wars</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -180,32 +180,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./langchain_memory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Langchain Memory</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./langchain_chains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Langchain Chains</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./a_new_hope.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Talk to your Data: Star Wars</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Talk to your Data: Star Wars</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./product_retrieval_llms_embeddings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Retrieval with LLMs and Embeddings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data Retrieval with LLMs and Embeddings</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day_2_exercise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Day 2 Exercise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Day 2 Exercise</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day_3_hackathon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Day 3 Hackathon</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Day 3 Hackathon</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -224,19 +236,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-an-embedding" id="toc-what-is-an-embedding" class="nav-link active" data-scroll-target="#what-is-an-embedding"><span class="header-section-number">7.0.1</span> What is an embedding?</a></li>
-  <li><a href="#application-flow" id="toc-application-flow" class="nav-link" data-scroll-target="#application-flow"><span class="header-section-number">7.0.2</span> Application flow</a></li>
-  <li><a href="#sdk-and-project-initialization" id="toc-sdk-and-project-initialization" class="nav-link" data-scroll-target="#sdk-and-project-initialization"><span class="header-section-number">7.0.3</span> SDK and Project Initialization</a></li>
-  <li><a href="#import-langchain-tools" id="toc-import-langchain-tools" class="nav-link" data-scroll-target="#import-langchain-tools"><span class="header-section-number">7.0.4</span> Import Langchain tools</a></li>
-  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data"><span class="header-section-number">8</span> Import data</a>
+  <li><a href="#what-is-an-embedding" id="toc-what-is-an-embedding" class="nav-link active" data-scroll-target="#what-is-an-embedding"><span class="header-section-number">9.0.1</span> What is an embedding?</a></li>
+  <li><a href="#application-flow" id="toc-application-flow" class="nav-link" data-scroll-target="#application-flow"><span class="header-section-number">9.0.2</span> Application flow</a></li>
+  <li><a href="#sdk-and-project-initialization" id="toc-sdk-and-project-initialization" class="nav-link" data-scroll-target="#sdk-and-project-initialization"><span class="header-section-number">9.0.3</span> SDK and Project Initialization</a></li>
+  <li><a href="#import-langchain-tools" id="toc-import-langchain-tools" class="nav-link" data-scroll-target="#import-langchain-tools"><span class="header-section-number">9.0.4</span> Import Langchain tools</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data"><span class="header-section-number">10</span> Import data</a>
   <ul class="collapse">
-  <li><a href="#text-splitters" id="toc-text-splitters" class="nav-link" data-scroll-target="#text-splitters"><span class="header-section-number">8.0.1</span> Text splitters</a></li>
-  <li><a href="#embeddings-example" id="toc-embeddings-example" class="nav-link" data-scroll-target="#embeddings-example"><span class="header-section-number">8.0.2</span> Embeddings example</a></li>
-  <li><a href="#retrieval" id="toc-retrieval" class="nav-link" data-scroll-target="#retrieval"><span class="header-section-number">8.0.3</span> Retrieval</a></li>
-  <li><a href="#prompt" id="toc-prompt" class="nav-link" data-scroll-target="#prompt"><span class="header-section-number">8.0.4</span> Prompt</a></li>
-  <li><a href="#checking-for-hallucinations" id="toc-checking-for-hallucinations" class="nav-link" data-scroll-target="#checking-for-hallucinations"><span class="header-section-number">8.0.5</span> Checking for hallucinations</a></li>
-  <li><a href="#chat" id="toc-chat" class="nav-link" data-scroll-target="#chat"><span class="header-section-number">8.0.6</span> Chat</a></li>
-  <li><a href="#memory" id="toc-memory" class="nav-link" data-scroll-target="#memory"><span class="header-section-number">8.0.7</span> Memory</a></li>
+  <li><a href="#text-splitters" id="toc-text-splitters" class="nav-link" data-scroll-target="#text-splitters"><span class="header-section-number">10.0.1</span> Text splitters</a></li>
+  <li><a href="#embeddings-example" id="toc-embeddings-example" class="nav-link" data-scroll-target="#embeddings-example"><span class="header-section-number">10.0.2</span> Embeddings example</a></li>
+  <li><a href="#retrieval" id="toc-retrieval" class="nav-link" data-scroll-target="#retrieval"><span class="header-section-number">10.0.3</span> Retrieval</a></li>
+  <li><a href="#prompt" id="toc-prompt" class="nav-link" data-scroll-target="#prompt"><span class="header-section-number">10.0.4</span> Prompt</a></li>
+  <li><a href="#checking-for-hallucinations" id="toc-checking-for-hallucinations" class="nav-link" data-scroll-target="#checking-for-hallucinations"><span class="header-section-number">10.0.5</span> Checking for hallucinations</a></li>
+  <li><a href="#chat" id="toc-chat" class="nav-link" data-scroll-target="#chat"><span class="header-section-number">10.0.6</span> Chat</a></li>
+  <li><a href="#memory" id="toc-memory" class="nav-link" data-scroll-target="#memory"><span class="header-section-number">10.0.7</span> Memory</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -246,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Talk to your Data: Star Wars</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Talk to your Data: Star Wars</span></h1>
 </div>
 
 
@@ -274,14 +286,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Retrieval Augmented Generation (RAG). Using RAG, we feed the model and ask it to inform its answers based on the details in the data</li>
 </ul>
 <p><img src="https://github.com/rastringer/promptcraft_notebooks/blob/main/images/panel_demo.png?raw=1" alt="Panel demo" width="500"></p>
-<section id="what-is-an-embedding" class="level3" data-number="7.0.1">
-<h3 data-number="7.0.1" class="anchored" data-anchor-id="what-is-an-embedding"><span class="header-section-number">7.0.1</span> What is an embedding?</h3>
+<section id="what-is-an-embedding" class="level3" data-number="9.0.1">
+<h3 data-number="9.0.1" class="anchored" data-anchor-id="what-is-an-embedding"><span class="header-section-number">9.0.1</span> What is an embedding?</h3>
 <p>To feed text, image or audio to machine learning models, we first have to convert it to numerical values a model can understand.</p>
 <p>Embeddings in this example convert the text in the film script into floating point numbers that denote similarity. We accomplish this by using a trained model (from Vertex) that knows “Lightsaber” and “Jedi” should be close together in the ‘embedding space’. This means we can embed the script and preserve the similarity scores of the words.</p>
 <p><img src="https://github.com/rastringer/promptcraft_notebooks/blob/main/images/embeddings.png?raw=1" alt="Embeddings" width="600"></p>
 </section>
-<section id="application-flow" class="level3" data-number="7.0.2">
-<h3 data-number="7.0.2" class="anchored" data-anchor-id="application-flow"><span class="header-section-number">7.0.2</span> Application flow</h3>
+<section id="application-flow" class="level3" data-number="9.0.2">
+<h3 data-number="9.0.2" class="anchored" data-anchor-id="application-flow"><span class="header-section-number">9.0.2</span> Application flow</h3>
 <p><img src="https://github.com/rastringer/promptcraft_notebooks/blob/main/images/flow.png?raw=1" alt="Flow" width="600"></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the packages</span></span>
@@ -306,8 +318,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>auth.authenticate_user()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="sdk-and-project-initialization" class="level3" data-number="7.0.3">
-<h3 data-number="7.0.3" class="anchored" data-anchor-id="sdk-and-project-initialization"><span class="header-section-number">7.0.3</span> SDK and Project Initialization</h3>
+<section id="sdk-and-project-initialization" class="level3" data-number="9.0.3">
+<h3 data-number="9.0.3" class="anchored" data-anchor-id="sdk-and-project-initialization"><span class="header-section-number">9.0.3</span> SDK and Project Initialization</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Fill in your GCP project_id and region</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>PROJECT_ID <span class="op">=</span> <span class="st">"&lt;&gt;"</span></span>
@@ -318,8 +330,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>aiplatform.init(project<span class="op">=</span>PROJECT_ID, location<span class="op">=</span>REGION)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="import-langchain-tools" class="level3" data-number="7.0.4">
-<h3 data-number="7.0.4" class="anchored" data-anchor-id="import-langchain-tools"><span class="header-section-number">7.0.4</span> Import Langchain tools</h3>
+<section id="import-langchain-tools" class="level3" data-number="9.0.4">
+<h3 data-number="9.0.4" class="anchored" data-anchor-id="import-langchain-tools"><span class="header-section-number">9.0.4</span> Import Langchain tools</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utils</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -341,8 +353,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Vertex AI SDK version: </span><span class="sc">{</span>aiplatform<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="import-data" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Import data</h1>
+<section id="import-data" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Import data</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget https:<span class="op">//</span>assets.scriptslug.com<span class="op">/</span>live<span class="op">/</span>pdf<span class="op">/</span>scripts<span class="op">/</span>star<span class="op">-</span>wars<span class="op">-</span>episode<span class="op">-</span>iv<span class="op">-</span>a<span class="op">-</span>new<span class="op">-</span>hope<span class="op">-</span><span class="fl">1977.</span><span class="er">pdf</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -357,8 +369,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>doc <span class="op">=</span> loader.load()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="text-splitters" class="level3" data-number="8.0.1">
-<h3 data-number="8.0.1" class="anchored" data-anchor-id="text-splitters"><span class="header-section-number">8.0.1</span> Text splitters</h3>
+<section id="text-splitters" class="level3" data-number="10.0.1">
+<h3 data-number="10.0.1" class="anchored" data-anchor-id="text-splitters"><span class="header-section-number">10.0.1</span> Text splitters</h3>
 <p>Language models often constrain the amount of text that can be fed as an input, so it is good practice to use text splitters to keep inputs to manageable ‘chunks’.</p>
 <p>We can also often improve results from vector store matches since smaller chunks may be more likely to match queries.</p>
 <div class="cell">
@@ -381,8 +393,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> TextEmbeddingModel.from_pretrained(<span class="st">"textembedding-gecko@001"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="embeddings-example" class="level3" data-number="8.0.2">
-<h3 data-number="8.0.2" class="anchored" data-anchor-id="embeddings-example"><span class="header-section-number">8.0.2</span> Embeddings example</h3>
+<section id="embeddings-example" class="level3" data-number="10.0.2">
+<h3 data-number="10.0.2" class="anchored" data-anchor-id="embeddings-example"><span class="header-section-number">10.0.2</span> Embeddings example</h3>
 <p>As a simple example of embedding sentences, we will use the Vertex AI SDK and embedding model to work out numerical values for some simple sentences.</p>
 <p>We then calculate the dot product of the resulting arrays of floats. Sentences that are similar should have higher dot product results.</p>
 <div class="cell">
@@ -462,8 +474,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(docs[<span class="dv">1</span>].page_content)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="retrieval" class="level3" data-number="8.0.3">
-<h3 data-number="8.0.3" class="anchored" data-anchor-id="retrieval"><span class="header-section-number">8.0.3</span> Retrieval</h3>
+<section id="retrieval" class="level3" data-number="10.0.3">
+<h3 data-number="10.0.3" class="anchored" data-anchor-id="retrieval"><span class="header-section-number">10.0.3</span> Retrieval</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chains <span class="im">import</span> RetrievalQA</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -482,8 +494,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="prompt" class="level3" data-number="8.0.4">
-<h3 data-number="8.0.4" class="anchored" data-anchor-id="prompt"><span class="header-section-number">8.0.4</span> Prompt</h3>
+<section id="prompt" class="level3" data-number="10.0.4">
+<h3 data-number="10.0.4" class="anchored" data-anchor-id="prompt"><span class="header-section-number">10.0.4</span> Prompt</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.prompts <span class="im">import</span> PromptTemplate</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -512,8 +524,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>result[<span class="st">"result"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="checking-for-hallucinations" class="level3" data-number="8.0.5">
-<h3 data-number="8.0.5" class="anchored" data-anchor-id="checking-for-hallucinations"><span class="header-section-number">8.0.5</span> Checking for hallucinations</h3>
+<section id="checking-for-hallucinations" class="level3" data-number="10.0.5">
+<h3 data-number="10.0.5" class="anchored" data-anchor-id="checking-for-hallucinations"><span class="header-section-number">10.0.5</span> Checking for hallucinations</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"What is Darth Vader's favourite Spotify playlist?"</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> qa_chain({<span class="st">"query"</span>: question})</span>
@@ -525,8 +537,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>result[<span class="st">"result"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="chat" class="level3" data-number="8.0.6">
-<h3 data-number="8.0.6" class="anchored" data-anchor-id="chat"><span class="header-section-number">8.0.6</span> Chat</h3>
+<section id="chat" class="level3" data-number="10.0.6">
+<h3 data-number="10.0.6" class="anchored" data-anchor-id="chat"><span class="header-section-number">10.0.6</span> Chat</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build prompt</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.prompts <span class="im">import</span> PromptTemplate</span>
@@ -554,8 +566,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>result[<span class="st">"result"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="memory" class="level3" data-number="8.0.7">
-<h3 data-number="8.0.7" class="anchored" data-anchor-id="memory"><span class="header-section-number">8.0.7</span> Memory</h3>
+<section id="memory" class="level3" data-number="10.0.7">
+<h3 data-number="10.0.7" class="anchored" data-anchor-id="memory"><span class="header-section-number">10.0.7</span> Memory</h3>
 <p>For an effective chat, we need the model to remember its previous responses</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.memory <span class="im">import</span> ConversationBufferMemory</span>
@@ -981,13 +993,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./langchain_intro.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Langchain Intro</span></span>
+      <a href="./langchain_chains.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Langchain Chains</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./product_retrieval_llms_embeddings.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Retrieval with LLMs and Embeddings</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data Retrieval with LLMs and Embeddings</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
