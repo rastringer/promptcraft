@@ -7,7 +7,6 @@ book:
   author: "RA Stringer"
   search: true
   repo-url: https://github.com/rastringer/promptcraft
-  sharing: [twitter]
   chapters:
     - index.qmd
     - part: "Day One"
