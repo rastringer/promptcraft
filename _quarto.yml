@@ -18,6 +18,7 @@ book:
     - langchain_intro.ipynb
     - langchain_memory.ipynb
     - langchain_chains.ipynb
+    - agents_vectorstores.ipynb
     - enterprise_search.ipynb
     - a_new_hope.ipynb
     - product_retrieval_llms_embeddings.ipynb
