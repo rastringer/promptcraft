@@ -248,10 +248,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sdk-and-project-initialization" id="toc-sdk-and-project-initialization" class="nav-link active" data-scroll-target="#sdk-and-project-initialization"><span class="header-section-number">9.0.1</span> SDK and Project Initialization</a></li>
-  <li><a href="#import-langchain-tools" id="toc-import-langchain-tools" class="nav-link" data-scroll-target="#import-langchain-tools"><span class="header-section-number">9.0.2</span> Import Langchain tools</a></li>
+  <li><a href="#data-retrieval-with-llms-and-embeddings" id="toc-data-retrieval-with-llms-and-embeddings" class="nav-link active" data-scroll-target="#data-retrieval-with-llms-and-embeddings"><span class="header-section-number">9.1</span> Data Retrieval with LLMs and Embeddings</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">9.1.1</span> Overview</a></li>
+  <li><a href="#sdk-and-project-initialization" id="toc-sdk-and-project-initialization" class="nav-link" data-scroll-target="#sdk-and-project-initialization"><span class="header-section-number">9.1.2</span> SDK and Project Initialization</a></li>
+  <li><a href="#import-langchain-tools" id="toc-import-langchain-tools" class="nav-link" data-scroll-target="#import-langchain-tools"><span class="header-section-number">9.1.3</span> Import Langchain tools</a></li>
+  </ul></li>
   <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data"><span class="header-section-number">10</span> Import data</a>
   <ul class="collapse">
+  <li><a href="#import-and-initialize-pandas-dataframe-agent" id="toc-import-and-initialize-pandas-dataframe-agent" class="nav-link" data-scroll-target="#import-and-initialize-pandas-dataframe-agent"><span class="header-section-number">10.0.1</span> Import and initialize pandas dataframe agent</a></li>
   <li><a href="#vector-stores" id="toc-vector-stores" class="nav-link" data-scroll-target="#vector-stores"><span class="header-section-number">10.1</span> Vector stores</a>
   <ul class="collapse">
   <li><a href="#retrieval" id="toc-retrieval" class="nav-link" data-scroll-target="#retrieval"><span class="header-section-number">10.1.1</span> Retrieval</a></li>
@@ -291,6 +296,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Langchain, a framework for building applications with large language models</p></li>
 <li><p>The open-source Chroma vector store database</p></li>
 </ul>
+<section id="data-retrieval-with-llms-and-embeddings" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="data-retrieval-with-llms-and-embeddings"><span class="header-section-number">9.1</span> Data Retrieval with LLMs and Embeddings</h2>
+<p>Matching customer queries to products via embeddings and Retrieval Augmentated Generation.</p>
+<section id="overview" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">9.1.1</span> Overview</h3>
+<p>This notebook demonstrates one method of using large language models to interact with data. Using the Wayfair <a href="https://www.aboutwayfair.com/careers/tech-blog/wayfair-releases-wands-the-largest-and-richest-publicly-available-dataset-for-e-commerce-product-search-relevance">WANDS</a> dataset of more than 42,000 products, we will go through the following steps:</p>
+<ul>
+<li><p>Download the data into a pandas dataframe and take a smaller 1,000-row sample set</p></li>
+<li><p>Merge then generate embeddings for the product titles and descriptions</p></li>
+<li><p>Prompt an LLM to retrieve details and relevant documents related to queries.</p></li>
+</ul>
+<p><img src="https://assets.wfcdn.com/im/01139917/resize-h800-w800%5Ecompr-r85/2315/231567967/Capricornus+3+Seater+Sofa.jpg" width="300"> <img src="https://assets.wfcdn.com/im/07725066/resize-h800-w800%5Ecompr-r85/1584/158440119/Vancasso+BOMOOTIUR+Stoneware+Dinnerware+-+Set+of+18.jpg" width="300"></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> pip install <span class="op">--</span>upgrade google<span class="op">-</span>cloud<span class="op">-</span>aiplatform</span>
@@ -314,8 +331,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> auth</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>auth.authenticate_user()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="sdk-and-project-initialization" class="level3" data-number="9.0.1">
-<h3 data-number="9.0.1" class="anchored" data-anchor-id="sdk-and-project-initialization"><span class="header-section-number">9.0.1</span> SDK and Project Initialization</h3>
+</section>
+<section id="sdk-and-project-initialization" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="sdk-and-project-initialization"><span class="header-section-number">9.1.2</span> SDK and Project Initialization</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Fill in your GCP project_id and region</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>PROJECT_ID <span class="op">=</span> <span class="st">"&lt;..&gt;"</span></span>
@@ -326,8 +344,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>vertexai.init(project<span class="op">=</span>PROJECT_ID, location<span class="op">=</span>REGION)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="import-langchain-tools" class="level3" data-number="9.0.2">
-<h3 data-number="9.0.2" class="anchored" data-anchor-id="import-langchain-tools"><span class="header-section-number">9.0.2</span> Import Langchain tools</h3>
+<section id="import-langchain-tools" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="import-langchain-tools"><span class="header-section-number">9.1.3</span> Import Langchain tools</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Utils</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -349,6 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Vertex AI SDK version: </span><span class="sc">{</span>aiplatform<span class="sc">.</span>__version__<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+</section>
 <section id="import-data" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> Import data</h1>
 <div class="cell">
@@ -356,8 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>product_df <span class="op">=</span> pd.read_csv(<span class="st">"product.csv"</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>product_df <span class="op">=</span> pd.read_csv(<span class="st">"product.csv"</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>product_df <span class="op">=</span> product_df[:<span class="dv">1000</span>].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -366,154 +384,151 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(product_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>product_df <span class="op">=</span> product_df.<span class="bu">filter</span>([<span class="st">"product_id"</span>, <span class="st">"product_name"</span>, <span class="st">"product_description"</span>, <span class="st">"average_rating"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reduce the df to columns of interest</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>product_df <span class="op">=</span> product_df.<span class="bu">filter</span>([<span class="st">"product_id"</span>, <span class="st">"product_name"</span>, <span class="st">"product_description"</span>, <span class="st">"average_rating"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>product_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>product_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="import-and-initialize-pandas-dataframe-agent" class="level3" data-number="10.0.1">
+<h3 data-number="10.0.1" class="anchored" data-anchor-id="import-and-initialize-pandas-dataframe-agent"><span class="header-section-number">10.0.1</span> Import and initialize pandas dataframe agent</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_pandas_dataframe_agent</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents.agent_types <span class="im">import</span> AgentType</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>product_df.to_csv(<span class="st">"data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> create_pandas_dataframe_agent(VertexAI(temperature<span class="op">=</span><span class="dv">0</span>), product_df, verbose<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_csv_agent</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents.agent_types <span class="im">import</span> AgentType</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"how many rows are there?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents <span class="im">import</span> create_pandas_dataframe_agent</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.agents.agent_types <span class="im">import</span> AgentType</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"How many beds are there with a rating of &gt; 4?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> create_pandas_dataframe_agent(VertexAI(temperature<span class="op">=</span><span class="dv">0</span>), product_df, verbose<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> create_csv_agent(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    VertexAI(temperature<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data.csv"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    agent_type<span class="op">=</span>AgentType.ZERO_SHOT_REACT_DESCRIPTION,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"how many rows are there?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"How many rows are there?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"How many beds are there with a rating of &gt; 4?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"Do any products descriptions mention polypropylene pile? Output them as JSON please"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> create_csv_agent(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    VertexAI(temperature<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"data.csv"</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    agent_type<span class="op">=</span>AgentType.ZERO_SHOT_REACT_DESCRIPTION,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"What is the square root of all ratings for product names featuring sofas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"How many rows are there?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"Do any products descriptions mention polypropylene pile? Output them as JSON please"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>agent.run(<span class="st">"What is the square root of all ratings for product names featuring sofas"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+</section>
 <section id="vector-stores" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="vector-stores"><span class="header-section-number">10.1</span> Vector stores</h2>
 <p>We will explore embeddings vectors and vector stores in more detail in the subsequent notebooks. Let’s see what’s possible by concatenating our <code>product_title</code> and <code>product_description</code> columns and creating a text file from the result. We can then create embeddings and perform various retrieval and Q&amp;A tasks.</p>
 <p>We will use the open source <a href="https://docs.trychroma.com/">Chroma</a> vector store.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.embeddings.sentence_transformer <span class="im">import</span> SentenceTransformerEmbeddings</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> CharacterTextSplitter</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.vectorstores <span class="im">import</span> Chroma</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.document_loaders <span class="im">import</span> TextLoader</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.embeddings.sentence_transformer <span class="im">import</span> SentenceTransformerEmbeddings</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> CharacterTextSplitter</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.vectorstores <span class="im">import</span> Chroma</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.document_loaders <span class="im">import</span> TextLoader</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>product_df[<span class="st">'text_data'</span>] <span class="op">=</span> product_df[<span class="st">'product_name'</span>] <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> product_df[<span class="st">'product_description'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>product_df[<span class="st">'text_data'</span>] <span class="op">=</span> product_df[<span class="st">'product_name'</span>] <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> product_df[<span class="st">'product_description'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the "text_data" column to a text file</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>text_file_path <span class="op">=</span> <span class="st">"combined_text_data.txt"</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>product_df[<span class="st">'text_data'</span>].to_csv(text_file_path, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, index<span class="op">=</span><span class="va">False</span>, header<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the "text_data" column to a text file</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>text_file_path <span class="op">=</span> <span class="st">"combined_text_data.txt"</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>product_df[<span class="st">'text_data'</span>].to_csv(text_file_path, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, index<span class="op">=</span><span class="va">False</span>, header<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the document and split it into chunks</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> TextLoader(<span class="st">"combined_text_data.txt"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>documents <span class="op">=</span> loader.load()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the document and split it into chunks</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> TextLoader(<span class="st">"combined_text_data.txt"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>documents <span class="op">=</span> loader.load()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> RecursiveCharacterTextSplitter</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>text_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    chunk_size <span class="op">=</span> <span class="dv">1500</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    chunk_overlap <span class="op">=</span> <span class="dv">150</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> text_splitter.split_documents(documents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.text_splitter <span class="im">import</span> RecursiveCharacterTextSplitter</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>text_splitter <span class="op">=</span> RecursiveCharacterTextSplitter(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    chunk_size <span class="op">=</span> <span class="dv">1500</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    chunk_overlap <span class="op">=</span> <span class="dv">150</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> text_splitter.split_documents(documents)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.vectorstores <span class="im">import</span> Chroma</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear any previous vector store</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">-</span>rf .<span class="op">/</span>docs<span class="op">/</span>chroma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.vectorstores <span class="im">import</span> Chroma</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear any previous vector store</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">-</span>rf .<span class="op">/</span>docs<span class="op">/</span>chroma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>embedding_function <span class="op">=</span> SentenceTransformerEmbeddings(model_name<span class="op">=</span><span class="st">"all-MiniLM-L6-v2"</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> Chroma.from_documents(docs, embedding_function)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>embedding_function <span class="op">=</span> SentenceTransformerEmbeddings(model_name<span class="op">=</span><span class="st">"all-MiniLM-L6-v2"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> Chroma.from_documents(docs, embedding_function)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"Is there a slow cooker?"</span></span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"Is there a slow cooker?"</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> db.similarity_search(query, n_results<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>docs[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"Recommend a durable door mat"</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> db.similarity_search(query, n_results<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>docs[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"Recommend a durable door mat"</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>docs <span class="op">=</span> db.similarity_search(query, n_results<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>docs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>docs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="retrieval" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="retrieval"><span class="header-section-number">10.1.1</span> Retrieval</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chains <span class="im">import</span> RetrievalQA</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> VertexAI(</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    model_name<span class="op">=</span><span class="st">"text-bison@001"</span>,</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    max_output_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    top_p<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    top_k<span class="op">=</span><span class="dv">40</span>,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>qa_chain <span class="op">=</span> RetrievalQA.from_chain_type(</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    llm,</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    retriever<span class="op">=</span>db.as_retriever()</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chains <span class="im">import</span> RetrievalQA</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> VertexAI(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    model_name<span class="op">=</span><span class="st">"text-bison@001"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    max_output_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    top_p<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    top_k<span class="op">=</span><span class="dv">40</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>qa_chain <span class="op">=</span> RetrievalQA.from_chain_type(</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    llm,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    retriever<span class="op">=</span>db.as_retriever()</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="prompt" class="level3" data-number="10.1.2">
 <h3 data-number="10.1.2" class="anchored" data-anchor-id="prompt"><span class="header-section-number">10.1.2</span> Prompt</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.prompts <span class="im">import</span> PromptTemplate</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Build prompt</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>template <span class="op">=</span> <span class="st">"""Use the following pieces of context to answer the question at the end. </span><span class="ch">\</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="st">If you don't know the answer, just say that you don't know, </span><span class="ch">\</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="st">don't try to make up an answer. Use three sentences maximum. </span><span class="ch">\</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="sc">{context}</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="st">Question: </span><span class="sc">{question}</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="st">Helpful Answer:"""</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>QA_CHAIN_PROMPT <span class="op">=</span> PromptTemplate(input_variables<span class="op">=</span>[<span class="st">"context"</span>, <span class="st">"question"</span>],template<span class="op">=</span>template,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.prompts <span class="im">import</span> PromptTemplate</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Build prompt</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>template <span class="op">=</span> <span class="st">"""Use the following pieces of context to answer the question at the end. </span><span class="ch">\</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="st">If you don't know the answer, just say that you don't know, </span><span class="ch">\</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="st">don't try to make up an answer. Use three sentences maximum. </span><span class="ch">\</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="sc">{context}</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="st">Question: </span><span class="sc">{question}</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="st">Helpful Answer:"""</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>QA_CHAIN_PROMPT <span class="op">=</span> PromptTemplate(input_variables<span class="op">=</span>[<span class="st">"context"</span>, <span class="st">"question"</span>],template<span class="op">=</span>template,)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run chain</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>qa_chain <span class="op">=</span> RetrievalQA.from_chain_type(</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    llm,</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    retriever<span class="op">=</span>db.as_retriever(),</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    return_source_documents<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    chain_type_kwargs<span class="op">=</span>{<span class="st">"prompt"</span>: QA_CHAIN_PROMPT}</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run chain</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>qa_chain <span class="op">=</span> RetrievalQA.from_chain_type(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    llm,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    retriever<span class="op">=</span>db.as_retriever(),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    return_source_documents<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    chain_type_kwargs<span class="op">=</span>{<span class="st">"prompt"</span>: QA_CHAIN_PROMPT}</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"Can you recommend comfortable bed sheets?"</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> qa_chain({<span class="st">"query"</span>: question})</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>result[<span class="st">"result"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>question <span class="op">=</span> <span class="st">"Can you recommend comfortable bed sheets?"</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> qa_chain({<span class="st">"query"</span>: question})</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>result[<span class="st">"result"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
