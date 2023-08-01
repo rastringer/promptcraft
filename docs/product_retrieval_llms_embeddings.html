@@ -286,8 +286,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data-formatting-for-building-an-index" id="toc-data-formatting-for-building-an-index" class="nav-link" data-scroll-target="#data-formatting-for-building-an-index"><span class="header-section-number">12.0.4</span> Data formatting for building an index</a></li>
   <li><a href="#json-lines" id="toc-json-lines" class="nav-link" data-scroll-target="#json-lines"><span class="header-section-number">12.0.5</span> JSON Lines</a></li>
   <li><a href="#creating-the-index-in-matching-engine" id="toc-creating-the-index-in-matching-engine" class="nav-link" data-scroll-target="#creating-the-index-in-matching-engine"><span class="header-section-number">12.0.6</span> Creating the index in Matching Engine</a></li>
-  <li><a href="#deploy-the-index" id="toc-deploy-the-index" class="nav-link" data-scroll-target="#deploy-the-index"><span class="header-section-number">12.0.7</span> Deploy the index</a></li>
-  <li><a href="#deploy-the-index-1" id="toc-deploy-the-index-1" class="nav-link" data-scroll-target="#deploy-the-index-1"><span class="header-section-number">12.0.8</span> Deploy the index</a></li>
+  <li><a href="#create-an-index-endpoint" id="toc-create-an-index-endpoint" class="nav-link" data-scroll-target="#create-an-index-endpoint"><span class="header-section-number">12.0.7</span> Create an index endpoint</a></li>
+  <li><a href="#deploy-the-index-to-the-endpoint" id="toc-deploy-the-index-to-the-endpoint" class="nav-link" data-scroll-target="#deploy-the-index-to-the-endpoint"><span class="header-section-number">12.0.8</span> Deploy the index to the endpoint</a></li>
   <li><a href="#quick-test-query" id="toc-quick-test-query" class="nav-link" data-scroll-target="#quick-test-query"><span class="header-section-number">12.0.9</span> Quick test query</a></li>
   <li><a href="#rag-using-the-llm-and-embeddings" id="toc-rag-using-the-llm-and-embeddings" class="nav-link" data-scroll-target="#rag-using-the-llm-and-embeddings"><span class="header-section-number">12.0.10</span> RAG using the LLM and embeddings</a></li>
   <li><a href="#cleaning-up" id="toc-cleaning-up" class="nav-link" data-scroll-target="#cleaning-up"><span class="header-section-number">12.0.11</span> Cleaning up</a></li>
@@ -325,8 +325,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Create and deploy and index of the embeddings on Vertex AI Matching Engine, a service which enables <a href="https://en.wikipedia.org/wiki/Nearest_neighbor_search">nearest neighbor</a> search at scale</p></li>
 <li><p>Prompt an LLM to retrieve relevant product suggestions from the embedded data.</p></li>
 </ul>
+<section id="please-note" class="level4" data-number="12.0.1.1">
+<h4 data-number="12.0.1.1" class="anchored" data-anchor-id="please-note"><span class="header-section-number">12.0.1.1</span> Please note:</h4>
+<p>Deployed indexes on matching engine can quickly accrue significant costs. Please see the final cell of the notebook for cleaning up resources used.</p>
 <p><img src="https://assets.wfcdn.com/im/01139917/resize-h800-w800%5Ecompr-r85/2315/231567967/Capricornus+3+Seater+Sofa.jpg" width="325"> <img src="https://assets.wfcdn.com/im/07725066/resize-h800-w800%5Ecompr-r85/1584/158440119/Vancasso+BOMOOTIUR+Stoneware+Dinnerware+-+Set+of+18.jpg" width="325"></p>
 <p>Images from wayfair.co.uk</p>
+</section>
 </section>
 <section id="technologies" class="level3" data-number="12.0.2">
 <h3 data-number="12.0.2" class="anchored" data-anchor-id="technologies"><span class="header-section-number">12.0.2</span> Technologies</h3>
@@ -353,12 +357,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Set your Google Cloud project id and region</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>PROJECT_ID <span class="op">=</span> <span class="st">"&lt;...&gt;"</span>  <span class="co"># @param {type:"string"}</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the project id</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> gcloud config <span class="bu">set</span> project {PROJECT_ID}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>REGION <span class="op">=</span> <span class="st">"&lt;..&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>REGION <span class="op">=</span> <span class="st">"&lt;...&gt;"</span>  <span class="co"># @param {type: "string"}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the project id</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> gcloud config <span class="bu">set</span> project {PROJECT_ID}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We will need a Cloud Storage bucket to store embeddings initially. Please create a bucket and add the URI below.</p>
 <div class="cell">
@@ -384,9 +387,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Install and intialize the SDK and language model. GCP uses the <code>gecko</code> model for text embeddings.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.cloud <span class="im">import</span> aiplatform</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> vertexai</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>aiplatform.init(project<span class="op">=</span>PROJECT_ID, location<span class="op">=</span>REGION, staging_bucket<span class="op">=</span>BUCKET_URI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>vertexai.init(project<span class="op">=</span>PROJECT_ID, location<span class="op">=</span>REGION, staging_bucket<span class="op">=</span>BUCKET_URI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the "Vertex AI Embeddings for Text" model</span></span>
@@ -637,8 +640,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>INDEX_RESOURCE_NAME <span class="op">=</span> tree_ah_index.resource_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="deploy-the-index" class="level3" data-number="12.0.7">
-<h3 data-number="12.0.7" class="anchored" data-anchor-id="deploy-the-index"><span class="header-section-number">12.0.7</span> Deploy the index</h3>
+<section id="create-an-index-endpoint" class="level3" data-number="12.0.7">
+<h3 data-number="12.0.7" class="anchored" data-anchor-id="create-an-index-endpoint"><span class="header-section-number">12.0.7</span> Create an index endpoint</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>my_index_endpoint <span class="op">=</span> aiplatform.MatchingEngineIndexEndpoint.create(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    display_name<span class="op">=</span>DISPLAY_NAME,</span>
@@ -665,8 +668,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>DEPLOYED_INDEX_ID <span class="op">=</span> <span class="st">"&lt;...&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="deploy-the-index-1" class="level3" data-number="12.0.8">
-<h3 data-number="12.0.8" class="anchored" data-anchor-id="deploy-the-index-1"><span class="header-section-number">12.0.8</span> Deploy the index</h3>
+<section id="deploy-the-index-to-the-endpoint" class="level3" data-number="12.0.8">
+<h3 data-number="12.0.8" class="anchored" data-anchor-id="deploy-the-index-to-the-endpoint"><span class="header-section-number">12.0.8</span> Deploy the index to the endpoint</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>my_index_endpoint <span class="op">=</span> my_index_endpoint.deploy_index(</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>index, deployed_index_id<span class="op">=</span>DEPLOYED_INDEX_ID</span>
@@ -696,21 +699,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now let’s make that information useful, by creating helper functions to take the <code>id</code>s and match them to products.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the ids of the nearest neighbor results</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_nn_ids(response):</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  id_list <span class="op">=</span> [item.<span class="bu">id</span> <span class="cf">for</span> sublist <span class="kw">in</span> response <span class="cf">for</span> item <span class="kw">in</span> sublist]</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  id_list <span class="op">=</span> [<span class="bu">eval</span>(i) <span class="cf">for</span> i <span class="kw">in</span> id_list]</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(id_list)</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  results_df <span class="op">=</span> product_df[product_df[<span class="st">'id'</span>].isin(id_list)]</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> results_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_nn_ids(response):</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  id_list <span class="op">=</span> [item.<span class="bu">id</span> <span class="cf">for</span> sublist <span class="kw">in</span> response <span class="cf">for</span> item <span class="kw">in</span> sublist]</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  id_list <span class="op">=</span> [<span class="bu">eval</span>(i) <span class="cf">for</span> i <span class="kw">in</span> id_list]</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(id_list)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  results_df <span class="op">=</span> product_df[product_df[<span class="st">'id'</span>].isin(id_list)]</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> results_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create embeddings from a customer chat message</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_embeddings(input_text):</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  chat_embeddings <span class="op">=</span> encode_texts_to_embeddings(text<span class="op">=</span>[input_text])</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> chat_embeddings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_embeddings(input_text):</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  chat_embeddings <span class="op">=</span> encode_texts_to_embeddings(text<span class="op">=</span>[input_text])</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> chat_embeddings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the nearest neighbor lookups for</span></span>
@@ -727,16 +727,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> response</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe of results. This will be the data we</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ask the language model to base its recommendations on</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_nn_ids(response):</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  id_list <span class="op">=</span> [item.<span class="bu">id</span> <span class="cf">for</span> sublist <span class="kw">in</span> response <span class="cf">for</span> item <span class="kw">in</span> sublist]</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  id_list <span class="op">=</span> [<span class="bu">eval</span>(i) <span class="cf">for</span> i <span class="kw">in</span> id_list]</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(id_list)</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  results_df <span class="op">=</span> product_df[product_df[<span class="st">'id'</span>].isin(id_list)]</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> results_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe of results. This will be the data on which we</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ask the language model to base its recommendations</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_nn_ids(response):</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  id_list <span class="op">=</span> [item.<span class="bu">id</span> <span class="cf">for</span> sublist <span class="kw">in</span> response <span class="cf">for</span> item <span class="kw">in</span> sublist]</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  id_list <span class="op">=</span> [<span class="bu">eval</span>(i) <span class="cf">for</span> i <span class="kw">in</span> id_list]</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(id_list)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  results_df <span class="op">=</span> product_df[product_df[<span class="st">'id'</span>].isin(id_list)]</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> results_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="rag-using-the-llm-and-embeddings" class="level3" data-number="12.0.10">
