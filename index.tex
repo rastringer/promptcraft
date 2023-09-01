@@ -219,7 +219,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, frame hidden, enhanced, interior hidden, breakable, borderline west={3pt}{0pt}{shadecolor}, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -326,10 +326,21 @@ tier to complete.
 \chapter{Prompting, verification and
 reasoning}\label{prompting-verification-and-reasoning}}
 
-In this notebook, we will explore: * Basic prompts * Classifying user
-inputs to help direct queries * Extracting relevant items and
-information from a product catalogue * Checking for prompt injection and
-unsafe or harmful content * Chain-of-thought reasoning
+In this notebook, we will explore:
+
+\begin{itemize}
+\tightlist
+\item
+  Basic prompts
+\item
+  Classifying user inputs to help direct queries
+\item
+  Extracting relevant items and information from a product catalogue
+\item
+  Checking for prompt injection and unsafe or harmful content
+\item
+  Chain-of-thought reasoning
+\end{itemize}
 
 \hypertarget{scenario}{%
 \subsubsection{Scenario}\label{scenario}}
@@ -1306,10 +1317,11 @@ Y
 \hypertarget{evaluating-outputs}{%
 \chapter{Evaluating outputs}\label{evaluating-outputs}}
 
-In this notebook we will explore using the model to evaluate the quality
-and relevance of its outputs. This may seem meta, however, extracting
-responses into variables and asking follow-up questions with correct
-instructions can be an accurate and simple way of checking performance.
+In this notebook, we will explore using the model to evaluate the
+quality and relevance of its outputs. This may seem meta, however,
+extracting responses into variables and asking follow-up questions with
+correct instructions can be an accurate and simple way of checking
+performance.
 
 We're importing the various helper functions from the last notebook from
 \texttt{helper\_functions.py}, and our products are in a separate
@@ -3443,9 +3455,9 @@ vector store.
 \part{Semantic Exploration and Adaption}
 
 \hypertarget{vertex-search}{%
-\chapter{Vertex search}\label{vertex-search}}
+\chapter{Vertex Search}\label{vertex-search}}
 
-Using Langchain retrievers with
+Using LangChain retrievers with
 \href{https://cloud.google.com/enterprise-search}{Vertex Search} on
 Google Cloud.
 
