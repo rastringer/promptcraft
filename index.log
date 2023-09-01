@@ -1,11 +1,11 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.7.26)  1 SEP 2023 11:04
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.1)  1 SEP 2023 11:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **index.tex
 (./index.tex
 LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-06-30>
+L3 programming layer <2023-08-29>
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrreprt.cls
 Document Class: scrreprt 2023/07/07 v3.41 KOMA-Script document class (report)
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrkbase.sty
@@ -196,7 +196,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 )) (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
 ) (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/unicode-math/unicode-math.sty (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2023-06-30 L3 programming layer (loader) 
+Package: expl3 2023-08-29 L3 programming layer (loader) 
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2023-04-19 L3 backend support: XeTeX
 \g__graphics_track_int=\count269
@@ -205,9 +205,9 @@ File: l3backend-xetex.def 2023-04-19 L3 backend support: XeTeX
 \g__pdf_backend_annotation_int=\count271
 \g__pdf_backend_link_int=\count272
 ))
-Package: unicode-math 2020/01/31 v0.8q Unicode maths in XeLaTeX and LuaLaTeX
+Package: unicode-math 2023/08/13 v0.8r Unicode maths in XeLaTeX and LuaLaTeX
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/unicode-math/unicode-math-xetex.sty
-Package: unicode-math-xetex 2020/01/31 v0.8q Unicode maths in XeLaTeX and LuaLaTeX
+Package: unicode-math-xetex 2023/08/13 v0.8r Unicode maths in XeLaTeX and LuaLaTeX
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2023-02-02 L3 Experimental document command parser
 ) (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
@@ -608,9 +608,9 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 File: bkm-dvipdfm.def 2020-11-06 v1.29 bookmark driver for dvipdfm (HO)
 \BKM@id=\count328
 )) (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2023/03/12 v3.6j Customizing captions (AR)
+Package: caption 2023/07/31 v3.6n Customizing captions (AR)
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2023/03/12 v2.4 caption3 kernel (AR)
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen195
 \captionmargin=\dimen196
 \caption@leftmargin=\dimen197
@@ -644,10 +644,10 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@codelisting=\toks36
 \c@codelisting=\count332
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2023/02/19 v1.6 Sub-captions (AR)
-Package caption Info: New subtype `subfigure' on input line 239.
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
 \c@subfigure=\count333
-Package caption Info: New subtype `subtable' on input line 239.
+Package caption Info: New subtype `subtable' on input line 238.
 \c@subtable=\count334
 ) (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 Package: tcolorbox 2023/06/19 version 6.0.4 text color boxes
@@ -800,11 +800,11 @@ File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/tikzfill/tikzfill.image.sty
-Package: tikzfill.image 2022/07/20 v1.0.0 Image filling library for TikZ
+Package: tikzfill.image 2023/08/08 v1.0.1 Image filling library for TikZ
 (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/tikzfill/tikzfill-common.sty
-Package: tikzfill-common 2022/07/20 v1.0.0 Auxiliary code for tikzfill
+Package: tikzfill-common 2023/08/08 v1.0.1 Auxiliary code for tikzfill
 ) (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/tikzfill/tikzlibraryfill.image.code.tex
-File: tikzlibraryfill.image.code.tex 2022/07/20 v1.0.0 Image filling library
+File: tikzlibraryfill.image.code.tex 2023/08/08 v1.0.1 Image filling library
 \l__tikzfill_img_box=\box89
 )) (/Users/rstringer/Library/TinyTeX/texmf-dist/tex/latex/tcolorbox/tcbskinsjigsaw.code.tex
 Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '6.0.4'
@@ -1162,7 +1162,7 @@ No file index.toc.
 part I.
 Package scrkbase Info: You've told me to use the font selection of the element
 (scrkbase)             `partprefix' that is an alias of element `partnumber'
-(scrkbase)              on input line 286.
+(scrkbase)              on input line 303.
 [4
 
 ]
@@ -1185,7 +1185,7 @@ Class scrreprt Warning: \float@addtolists detected!
 
 Package svg Warning: You didn't enable `shell escape' (or `write18')
 (svg)                so it wasn't possible to launch the Inkscape export
-(svg)                for `index_files/mediabag/colab-badge.svg' on input line 307.
+(svg)                for `index_files/mediabag/colab-badge.svg' on input line 324.
 
 
 ! Package svg Error: File `colab-badge_svg-tex.pdf' is missing.
@@ -1194,15 +1194,15 @@ See the svg package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.307 ...vg{index_files/mediabag/colab-badge.svg}}
+l.324 ...vg{index_files/mediabag/colab-badge.svg}}
                                                    
 Here is how much of TeX's memory you used:
- 37625 strings out of 477869
- 784118 string characters out of 5821407
- 1916875 words of memory out of 5000000
- 58003 multiletter control sequences out of 15000+600000
+ 37622 strings out of 477570
+ 784074 string characters out of 5816751
+ 1920438 words of memory out of 5000000
+ 58299 multiletter control sequences out of 15000+600000
  561657 words of font info for 68 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 108i,7n,120p,10900b,392s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,7n,120p,10900b,390s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on index.pdf (4 pages).

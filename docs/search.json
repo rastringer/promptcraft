@@ -1,9 +1,0 @@
-[
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "PromptCraft",
-    "section": "",
-    "text": "Welcome\nPromptCraft is a course to take developers from the basics of using language models to developing a prototype application in three days.\nLLMs and Generative AI have revolutionised the field of machine learning. The power of the foundational models, prompt tuning and model adaption mean practitioners can achieve what used to take weeks or months in a matter of days.\nThis course uses Google Cloud’s Generative AI Studio and is spread over three sessions, or days.\n\nDay one covers how to use clever prompting to categorize data, give effective responses grounded in data, validate, keep safe and evaluate outputs.\nDay two builds on the foundations of working with LLMs to developing complex applications. We cover:\n\nAn introduction to LangChain, a popular library for interacting and building applications with LLMs.\nLangChain memory, chains and agents.\nRetrieval augmented generation (RAG): embedding data such as PDF reports or a product catalog to get nuanced and accurate answers to detailed questions.\nDeep neural retrieval of an embedded product catalog using nearest neighbor search.\nFine-tuning a foundational model.\n\nDay three is a hackathon, where participants choose a use case, bring or create (via an LLM!) some data, and create a proof-of-concept application.\n\nAll lessons are launched via Colab. The course only requires the free tier to complete.\n\nPrerequisites\n\nA Google Cloud account.\nA Google Cloud project with billing enabled.\nFamiliarity with programming in Python."
-  }
-]

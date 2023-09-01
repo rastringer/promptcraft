@@ -219,7 +219,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, sharp corners, interior hidden, enhanced, borderline west={3pt}{0pt}{shadecolor}, frame hidden, breakable]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, interior hidden, enhanced, borderline west={3pt}{0pt}{shadecolor}, breakable, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -235,8 +235,8 @@
 
 \markboth{Welcome}{Welcome}
 
-PromptCraft is a course to take developers from language model prompting
-to a prototype application in three days.
+PromptCraft is a course to take developers from the basics of using
+language models to developing a prototype application in three days.
 
 LLMs and Generative AI have revolutionised the field of machine
 learning. The power of the foundational models, prompt tuning and model
@@ -253,11 +253,28 @@ and is spread over three sessions, or days.
   effective responses grounded in data, validate, keep safe and evaluate
   outputs.
 \item
-  Day two includes an introduction to
-  \href{https://python.langchain.com/docs/get_started/introduction.html}{LangChain},
-  a popular library for interacting and building applications with LLMs,
-  embedding data such as PDF reports or a product catalog, then
-  retrieving accurate responses, summaries and answers.
+  Day two builds on the foundations of working with LLMs to developing
+  complex applications. We cover:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    An introduction to
+    \href{https://python.langchain.com/docs/get_started/introduction.html}{LangChain},
+    a popular library for interacting and building applications with
+    LLMs.
+  \item
+    LangChain memory, chains and agents.
+  \item
+    Retrieval augmented generation (RAG): embedding data such as PDF
+    reports or a product catalog to get nuanced and accurate answers to
+    detailed questions.
+  \item
+    Deep neural retrieval of an embedded product catalog using nearest
+    neighbor search.
+  \item
+    Fine-tuning a foundational model.
+  \end{itemize}
 \item
   Day three is a hackathon, where participants choose a use case, bring
   or create (via an LLM!) some data, and create a proof-of-concept
@@ -4947,8 +4964,8 @@ cells.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{fine-tuning-a-model}{%
-\chapter{Fine tuning a model}\label{fine-tuning-a-model}}
+\hypertarget{model-tuning}{%
+\chapter{Model tuning}\label{model-tuning}}
 
 \hypertarget{considerations}{%
 \subsection{Considerations}\label{considerations}}
