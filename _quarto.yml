@@ -12,7 +12,6 @@ book:
     - part: "Day One"
       chapters:
       - prompting_and_verification.ipynb
-      - chain_of_thought.ipynb
       - chaining_prompts.ipynb
       - evaluation.ipynb
       - day_1_exercise.ipynb
@@ -25,6 +24,7 @@ book:
       - enterprise_search.ipynb
       - a_new_hope.ipynb
       - product_retrieval_llms_embeddings.ipynb
+      - fine_tuning.ipynb
       - day_2_exercise.ipynb
     - part: "Day Three"
       chapters:
