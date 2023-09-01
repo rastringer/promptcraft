@@ -4,18 +4,29 @@ PromptCraft is a course to take developers from the basics of using language mod
 
 LLMs and Generative AI have revolutionised the field of machine learning. The power of the foundational models, prompt tuning and model adaption mean practitioners can achieve what used to take weeks or months in a matter of days. 
 
-This course uses Google Cloud's [Generative AI Studio](https://cloud.google.com/ai/generative-ai) and is spread over three sessions, or days. 
+This course uses Google Cloud's [Generative AI Studio](https://cloud.google.com/ai/generative-ai) and the material is formatted to spread over three sessions, or days: 
 
-* Day one covers how to use clever prompting to categorize data, give effective responses grounded in data, validate, keep safe and evaluate outputs.
+**The LLM toolkit**:
 
-* Day two builds on the foundations of working with LLMs to developing complex applications. We cover:
-    * An introduction to [LangChain](https://python.langchain.com/docs/get_started/introduction.html), a popular library for interacting and building applications with LLMs.
-    * LangChain memory, chains and agents.
-    * Retrieval augmented generation (RAG): embedding data such as PDF reports or a product catalog to get nuanced and accurate answers to detailed questions.
-    * Deep neural retrieval of an embedded product catalog using nearest neighbor search.
-    * Fine-tuning a foundational model.
+* Use clever prompting to categorize data
+* Get relevant responses grounded in data
+* Validate outputs
+* Evaluate performance
 
-* Day three is a hackathon, where participants choose a use case, bring or create (via an LLM!) some data, and create a proof-of-concept application. 
+**LangChain**:
+
+* An introduction to [LangChain](https://python.langchain.com/docs/get_started/introduction.html), a popular library for interacting and building applications with LLMs including:
+    * Memory
+    * Chains
+    * Agents
+
+**Semantic exploration and adaption**:
+
+* Retrieval augmented generation (RAG): embedding data such as PDF reports or a product catalog to get nuanced and accurate answers to detailed questions 
+* Deep neural retrieval: embed a product catalog, create an index and perform nearest neighbour searches in response to user input
+* Fine-tuning a foundational model
+
+An optional part four is a hackathon, where participants choose a use case, bring or create (via an LLM!) some data, and create a proof-of-concept application. 
 
 All lessons are launched via Colab. The course only requires the free tier to complete.
 

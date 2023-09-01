@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.1)  1 SEP 2023 11:21
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.1)  1 SEP 2023 12:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1158,12 +1158,12 @@ No file index.toc.
 
 ] [3
 
-]
+] [4]
 part I.
 Package scrkbase Info: You've told me to use the font selection of the element
 (scrkbase)             `partprefix' that is an alias of element `partnumber'
-(scrkbase)              on input line 303.
-[4
+(scrkbase)              on input line 323.
+[5
 
 ]
 chapter 1.
@@ -1185,7 +1185,7 @@ Class scrreprt Warning: \float@addtolists detected!
 
 Package svg Warning: You didn't enable `shell escape' (or `write18')
 (svg)                so it wasn't possible to launch the Inkscape export
-(svg)                for `index_files/mediabag/colab-badge.svg' on input line 324.
+(svg)                for `index_files/mediabag/colab-badge.svg' on input line 344.
 
 
 ! Package svg Error: File `colab-badge_svg-tex.pdf' is missing.
@@ -1194,7 +1194,7 @@ See the svg package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.324 ...vg{index_files/mediabag/colab-badge.svg}}
+l.344 ...vg{index_files/mediabag/colab-badge.svg}}
                                                    
 Here is how much of TeX's memory you used:
  37622 strings out of 477570
@@ -1203,6 +1203,6 @@ Here is how much of TeX's memory you used:
  58299 multiletter control sequences out of 15000+600000
  561657 words of font info for 68 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 108i,7n,120p,10900b,390s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,7n,120p,10900b,414s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on index.pdf (4 pages).
+Output written on index.pdf (5 pages).

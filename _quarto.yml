@@ -7,28 +7,31 @@ book:
   author: "RA Stringer"
   search: true
   repo-url: https://github.com/rastringer/promptcraft
+  cover-image: logo2.jpeg
   chapters:
     - index.qmd
-    - part: "Day One"
+    - part: "The LLM Toolkit"
       chapters:
       - prompting_and_verification.ipynb
       - chaining_prompts.ipynb
       - evaluation.ipynb
-      - day_1_exercise.ipynb
-    - part: "Day Two"
+      - part_1_exercise.ipynb
+    - part: "LangChain"
       chapters:
       - langchain_intro.ipynb
       - langchain_memory.ipynb
       - langchain_chains.ipynb
       - agents_vectorstores.ipynb
+    - part: "Semantic Exploration and Adaption"
+      chapters:
       - enterprise_search.ipynb
       - a_new_hope.ipynb
       - product_retrieval_llms_embeddings.ipynb
       - fine_tuning.ipynb
-      - day_2_exercise.ipynb
-    - part: "Day Three"
+      - part_3_exercise.ipynb
+    - part: "Hackathon"
       chapters:
-      - day_3_hackathon.ipynb
+      - part_4_hackathon.ipynb
     - summary.qmd
     - references.qmd
 
@@ -36,7 +39,7 @@ bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: cerulean
   pdf:
     documentclass: scrreprt
 

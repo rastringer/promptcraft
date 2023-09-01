@@ -219,7 +219,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, interior hidden, enhanced, borderline west={3pt}{0pt}{shadecolor}, breakable, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, breakable, enhanced, frame hidden, sharp corners]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -245,41 +245,61 @@ months in a matter of days.
 
 This course uses Google Cloud's
 \href{https://cloud.google.com/ai/generative-ai}{Generative AI Studio}
-and is spread over three sessions, or days.
+and the material is formatted to spread over three sessions, or days:
+
+\textbf{The LLM toolkit}:
 
 \begin{itemize}
+\tightlist
 \item
-  Day one covers how to use clever prompting to categorize data, give
-  effective responses grounded in data, validate, keep safe and evaluate
-  outputs.
+  Use clever prompting to categorize data
 \item
-  Day two builds on the foundations of working with LLMs to developing
-  complex applications. We cover:
+  Get relevant responses grounded in data
+\item
+  Validate outputs
+\item
+  Evaluate performance
+\end{itemize}
+
+\textbf{LangChain}:
+
+\begin{itemize}
+\tightlist
+\item
+  An introduction to
+  \href{https://python.langchain.com/docs/get_started/introduction.html}{LangChain},
+  a popular library for interacting and building applications with LLMs
+  including:
 
   \begin{itemize}
   \tightlist
   \item
-    An introduction to
-    \href{https://python.langchain.com/docs/get_started/introduction.html}{LangChain},
-    a popular library for interacting and building applications with
-    LLMs.
+    Memory
   \item
-    LangChain memory, chains and agents.
+    Chains
   \item
-    Retrieval augmented generation (RAG): embedding data such as PDF
-    reports or a product catalog to get nuanced and accurate answers to
-    detailed questions.
-  \item
-    Deep neural retrieval of an embedded product catalog using nearest
-    neighbor search.
-  \item
-    Fine-tuning a foundational model.
+    Agents
   \end{itemize}
-\item
-  Day three is a hackathon, where participants choose a use case, bring
-  or create (via an LLM!) some data, and create a proof-of-concept
-  application.
 \end{itemize}
+
+\textbf{Semantic exploration and adaption}:
+
+\begin{itemize}
+\tightlist
+\item
+  Retrieval augmented generation (RAG): embedding data such as PDF
+  reports or a product catalog to get nuanced and accurate answers to
+  detailed questions
+\item
+  Deep neural retrieval: embed a product catalog, create an index and
+  perform nearest neighbour searches in response to user input
+\item
+  Fine-tuning a foundational model
+\end{itemize}
+
+An optional part four is a hackathon, where participants choose a use
+case, bring or create (via an LLM!) some data, and create a
+proof-of-concept application.
 
 All lessons are launched via Colab. The course only requires the free
 tier to complete.
@@ -300,7 +320,7 @@ tier to complete.
   Familiarity with programming in Python.
 \end{itemize}
 
-\part{Day One}
+\part{The LLM Toolkit}
 
 \hypertarget{prompting-verification-and-reasoning}{%
 \chapter{Prompting, verification and
@@ -1823,8 +1843,8 @@ from which the following grading criteria are used.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{day-1-exercise}{%
-\chapter{Day 1 Exercise}\label{day-1-exercise}}
+\hypertarget{part-1-exercise}{%
+\chapter{Part 1 Exercise}\label{part-1-exercise}}
 
 We'll now practice what we have learned today. Try the following:
 
@@ -1928,10 +1948,10 @@ Write evaluation prompts and contexts to check the quality of outputs.
 \end{Highlighting}
 \end{Shaded}
 
-\part{Day Two}
+\part{LangChain}
 
 \hypertarget{langchain-intro}{%
-\chapter{Langchain Intro}\label{langchain-intro}}
+\chapter{LangChain Intro}\label{langchain-intro}}
 
 Models, prompt templates and parsers
 
@@ -3420,16 +3440,17 @@ vector store.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{enterprise-search}{%
-\chapter{Enterprise search}\label{enterprise-search}}
+\part{Semantic Exploration and Adaption}
+
+\hypertarget{vertex-search}{%
+\chapter{Vertex search}\label{vertex-search}}
 
 Using Langchain retrievers with
-\href{https://cloud.google.com/enterprise-search}{Enterprise Search} on
+\href{https://cloud.google.com/enterprise-search}{Vertex Search} on
 Google Cloud.
 
-As of July 2023, the product is available to trusted testers. This
-notebook offers an example use of retrieving relevant documents for a
-query.
+This notebook offers an example use of retrieving relevant documents for
+a query.
 
 In this example, we will add course pdfs from Stanfords's CS224n class,
 which covers (rather aptly) NLP and LLMs. The dataset is available at
@@ -5518,8 +5539,8 @@ course better in this case.
 
 \end{figure}
 
-\hypertarget{day-2-exercise}{%
-\chapter{Day 2 Exercise}\label{day-2-exercise}}
+\hypertarget{part-3-exercise}{%
+\chapter{Part 3 Exercise}\label{part-3-exercise}}
 
 We'll now practice what we have learned today. Try the following:
 
@@ -5629,10 +5650,10 @@ Write evaluation prompts and contexts to check the quality of outputs.
 \end{Highlighting}
 \end{Shaded}
 
-\part{Day Three}
+\part{Hackathon}
 
-\hypertarget{day-3-hackathon}{%
-\chapter{Day 3 Hackathon}\label{day-3-hackathon}}
+\hypertarget{part-4-hackathon}{%
+\chapter{Part 4 Hackathon}\label{part-4-hackathon}}
 
 Let's get imaginative and use the skills we have learned over the past
 two days to implement a proof-of-concept. Here are some ideas:
