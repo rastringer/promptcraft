@@ -8,7 +8,7 @@ book:
   search: true
   repo-url: https://github.com/rastringer/promptcraft
   cover-image: logo2.jpeg
-  google-analytics: G-B48787W0G1
+  google-analytics: "G-B48787W0G1"
   chapters:
     - index.qmd
     - part: "The LLM Toolkit"
