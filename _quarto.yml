@@ -15,7 +15,6 @@ book:
       chapters:
       - prompting_and_verification.ipynb
       - chaining_prompts.ipynb
-      - evaluation.ipynb
       - part_1_exercise.ipynb
     - part: "LangChain"
       chapters:
