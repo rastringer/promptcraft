@@ -297,9 +297,10 @@ gtag('config', 'G-B48787W0G1', { 'anonymize_ip': true});
   <li><a href="#initialize-the-sdk" id="toc-initialize-the-sdk" class="nav-link active" data-scroll-target="#initialize-the-sdk"><span class="header-section-number">5.0.1</span> Initialize the SDK</a></li>
   <li><a href="#conversationbufferwindowmemory" id="toc-conversationbufferwindowmemory" class="nav-link" data-scroll-target="#conversationbufferwindowmemory"><span class="header-section-number">5.0.2</span> ConversationBufferWindowMemory</a></li>
   <li><a href="#conversationtokenbuffermemory" id="toc-conversationtokenbuffermemory" class="nav-link" data-scroll-target="#conversationtokenbuffermemory"><span class="header-section-number">5.0.3</span> ConversationTokenBufferMemory</a></li>
-  <li><a href="#conversationsummarybuffermemory" id="toc-conversationsummarybuffermemory" class="nav-link" data-scroll-target="#conversationsummarybuffermemory"><span class="header-section-number">5.0.4</span> ConversationSummaryBufferMemory</a></li>
-  <li><a href="#conversationsummarybuffermemory-1" id="toc-conversationsummarybuffermemory-1" class="nav-link" data-scroll-target="#conversationsummarybuffermemory-1"><span class="header-section-number">5.0.5</span> ConversationSummaryBufferMemory</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.0.6</span> Summary</a></li>
+  <li><a href="#keep-the-conversation-going-with-summaries" id="toc-keep-the-conversation-going-with-summaries" class="nav-link" data-scroll-target="#keep-the-conversation-going-with-summaries"><span class="header-section-number">5.0.4</span> Keep the conversation going with summaries</a></li>
+  <li><a href="#conversationsummarybuffermemory" id="toc-conversationsummarybuffermemory" class="nav-link" data-scroll-target="#conversationsummarybuffermemory"><span class="header-section-number">5.0.5</span> ConversationSummaryBufferMemory</a></li>
+  <li><a href="#conversationsummarybuffermemory-1" id="toc-conversationsummarybuffermemory-1" class="nav-link" data-scroll-target="#conversationsummarybuffermemory-1"><span class="header-section-number">5.0.6</span> ConversationSummaryBufferMemory</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.0.7</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -337,26 +338,26 @@ gtag('config', 'G-B48787W0G1', { 'anonymize_ip': true});
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Hugging Face transformers necessary for ConversationTokenBufferMemory</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> pip install transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Automatically restart kernel after installs so that your environment can access the new packages</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> IPython.Application.instance()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>app.kernel.do_shutdown(<span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>This optional cell wraps outputs, which can make them easier to digest.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML, display</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> set_css():</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  display(HTML(<span class="st">'''</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;style&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">    pre {</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">        white-space: pre-wrap;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;/style&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">  '''</span>))</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>get_ipython().events.register(<span class="st">'pre_run_cell'</span>, set_css)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Automatically restart kernel after installs so that your environment can access the new packages</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> IPython.Application.instance()</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>app.kernel.do_shutdown(<span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML, display</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> set_css():</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  display(HTML(<span class="st">'''</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;style&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">    pre {</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">        white-space: pre-wrap;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;/style&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">  '''</span>))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>get_ipython().events.register(<span class="st">'pre_run_cell'</span>, set_css)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you’re on Colab, authenticate via the following cell</p>
 <div class="cell">
@@ -367,8 +368,8 @@ gtag('config', 'G-B48787W0G1', { 'anonymize_ip': true});
 <h3 data-number="5.0.1" class="anchored" data-anchor-id="initialize-the-sdk"><span class="header-section-number">5.0.1</span> Initialize the SDK</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your project id and the project's region</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>PROJECT_ID <span class="op">=</span> <span class="st">"&lt;...&gt;"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>REGION <span class="op">=</span> <span class="st">"&lt;...&gt;"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>PROJECT_ID <span class="op">=</span> <span class="st">"&lt;..&gt;"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>REGION <span class="op">=</span> <span class="st">"&lt;..&gt;"</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.cloud <span class="im">import</span> aiplatform</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -400,7 +401,7 @@ gtag('config', 'G-B48787W0G1', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LLM model</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>llm <span class="op">=</span> VertexAI(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    model_name<span class="op">=</span><span class="st">"text-bison@001"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    max_output_tokens<span class="op">=</span><span class="dv">256</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    max_output_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    temperature<span class="op">=</span><span class="fl">0.1</span>,</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    top_p<span class="op">=</span><span class="fl">0.8</span>,</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    top_k<span class="op">=</span><span class="dv">40</span>,</span>
@@ -441,21 +442,23 @@ gtag('config', 'G-B48787W0G1', { 'anonymize_ip': true});
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>memory.load_memory_variables({})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In this example, we experiment with summarising the conversation at <code>max_token_limit</code>.</p>
+</section>
+<section id="keep-the-conversation-going-with-summaries" class="level3" data-number="5.0.4">
+<h3 data-number="5.0.4" class="anchored" data-anchor-id="keep-the-conversation-going-with-summaries"><span class="header-section-number">5.0.4</span> Keep the conversation going with summaries</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.chains <span class="im">import</span> ConversationChain</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>conversation_with_summary <span class="op">=</span> ConversationChain(</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    llm<span class="op">=</span>llm,</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We set a very low max_token_limit for the purposes of testing.</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    memory<span class="op">=</span>ConversationTokenBufferMemory(llm<span class="op">=</span>llm, max_token_limit<span class="op">=</span><span class="dv">60</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    memory<span class="op">=</span>ConversationTokenBufferMemory(llm<span class="op">=</span>llm, max_token_limit<span class="op">=</span><span class="dv">500</span>),</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>conversation_with_summary.predict(<span class="bu">input</span><span class="op">=</span><span class="st">"Hi, how are you?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="conversationsummarybuffermemory" class="level3" data-number="5.0.4">
-<h3 data-number="5.0.4" class="anchored" data-anchor-id="conversationsummarybuffermemory"><span class="header-section-number">5.0.4</span> ConversationSummaryBufferMemory</h3>
+<section id="conversationsummarybuffermemory" class="level3" data-number="5.0.5">
+<h3 data-number="5.0.5" class="anchored" data-anchor-id="conversationsummarybuffermemory"><span class="header-section-number">5.0.5</span> ConversationSummaryBufferMemory</h3>
 <p>Ensures conversational memory endures by summarizing old interactions to help inform chat within a new window. It uses token length to determine when to ‘flush’ the interactions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>conversation_with_summary.predict(<span class="bu">input</span><span class="op">=</span><span class="st">"I'm working on learning C++"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -467,12 +470,14 @@ gtag('config', 'G-B48787W0G1', { 'anonymize_ip': true});
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice the buffer here is updated and clears the earlier exchanges</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>conversation_with_summary.predict(<span class="bu">input</span><span class="op">=</span><span class="st">"Wish me luck!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The following cell should generate a reply that is clearly generic and missing the previous context of someone trying to learn C++.</p>
+<p>Run this cell, then go back to the <code>Keep the conversation going with summaries</code> cell and change <code>max_token_limit</code> to <code>700</code>. Then re-run the entire conversation and notice how the model relates its ouptut about learning C to the context of someone trying to learn C++.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>conversation_with_summary.predict(<span class="bu">input</span><span class="op">=</span><span class="st">"Would knowing C help me?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="conversationsummarybuffermemory-1" class="level3" data-number="5.0.5">
-<h3 data-number="5.0.5" class="anchored" data-anchor-id="conversationsummarybuffermemory-1"><span class="header-section-number">5.0.5</span> ConversationSummaryBufferMemory</h3>
+<section id="conversationsummarybuffermemory-1" class="level3" data-number="5.0.6">
+<h3 data-number="5.0.6" class="anchored" data-anchor-id="conversationsummarybuffermemory-1"><span class="header-section-number">5.0.6</span> ConversationSummaryBufferMemory</h3>
 <p>Ensures conversational memory endures by summarizing old interactions to help inform chat within a new window. It uses token length to determine when to ‘flush’ the interactions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain.memory <span class="im">import</span> ConversationSummaryBufferMemory</span>
@@ -526,8 +531,8 @@ gtag('config', 'G-B48787W0G1', { 'anonymize_ip': true});
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>memory.load_memory_variables({})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="summary" class="level3" data-number="5.0.6">
-<h3 data-number="5.0.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.0.6</span> Summary</h3>
+<section id="summary" class="level3" data-number="5.0.7">
+<h3 data-number="5.0.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">5.0.7</span> Summary</h3>
 <p>In this notebook, we explored various approaches to memory in conversations.</p>
 <ul>
 <li><p>ConversationBufferWindowMemory</p></li>
