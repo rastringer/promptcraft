@@ -1,4 +1,7 @@
-# PromptCraft
+# PromptCraft [DEPRECATED]
+
+*This course taught prompt engineering and working with data for the first wave of LLMs. It is now sorely out of date.*
+
 From language model prompts to prototype in three days.
 
 Online book at [rastringer.github.io/promptcraft/](https://rastringer.github.io/promptcraft/)
